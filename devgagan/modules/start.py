@@ -30,7 +30,7 @@ async def set_commands(_, message):
         BotCommand("start", "⚡ Start the bot"),
         BotCommand("batch", "📦 Extract in bulk"),
         BotCommand("login", "🔑 Get into the bot"),
-        BotCommand("upgrade", "✨ Upgrade to Premium"),
+        BotCommand("upgrade", "💎 Upgrade to Premium"),
         BotCommand("logout", "🚪 Get out of the bot"),
         BotCommand("transfer", "🎁 Gift premium to others"),
         BotCommand("myplan", "⏰ Get your plan details"),
