@@ -298,6 +298,49 @@ ADMIN_COMMANDS = {
         }
     ],
     
+    "🚫 Flood Wait Management": [
+        {
+            "command": "/flood",
+            "description": "Apply flood wait to user with flexible time formats",
+            "module": "flood_admin.py",
+            "status": "working",
+            "usage": "/flood <user_id> <duration>",
+            "access": "Owner Only"
+        },
+        {
+            "command": "/unflood",
+            "description": "Remove flood wait from user",
+            "module": "flood_admin.py",
+            "status": "working",
+            "usage": "/unflood <user_id>",
+            "access": "Owner Only"
+        },
+        {
+            "command": "/checkflood",
+            "description": "Check flood wait status for specific user",
+            "module": "flood_admin.py",
+            "status": "working",
+            "usage": "/checkflood <user_id>",
+            "access": "Owner Only"
+        },
+        {
+            "command": "/floodcheck",
+            "description": "List all active flood waits with auto/manual indicators",
+            "module": "flood_admin.py",
+            "status": "working",
+            "usage": "/floodcheck",
+            "access": "Owner Only"
+        },
+        {
+            "command": "/autoflood",
+            "description": "Control auto flood wait detection system",
+            "module": "flood_admin.py",
+            "status": "working",
+            "usage": "/autoflood [on|off] [seconds]",
+            "access": "Owner Only"
+        }
+    ],
+    
     "🎯 Fake Premium Marketing": [
         {
             "command": "/fakestart",

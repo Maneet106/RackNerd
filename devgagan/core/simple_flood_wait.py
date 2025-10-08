@@ -204,7 +204,8 @@ class SimpleFloodWaitManager:
                     "expires_at": expires_at,
                     "remaining_seconds": remaining_seconds,
                     "total_seconds": flood_wait["seconds"],
-                    "admin_id": flood_wait["admin_id"]
+                    "admin_id": flood_wait["admin_id"],
+                    "is_automatic": flood_wait["admin_id"] == 0
                 })
             
             # Sort by remaining time (least time first)

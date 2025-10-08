@@ -41,6 +41,7 @@ from devgagan.core.deduplication import (
 )
 from config import MONGO_DB as MONGODB_CONNECTION_STRING, LOG_GROUP, OWNER_ID, STRING, API_ID, API_HASH
 from devgagan.core.session_pool import session_pool
+from devgagan.core.auto_flood_detection import auto_flood_detector
 
 # Import pro userbot if STRING is available
 if STRING:
@@ -3862,6 +3863,9 @@ class SmartTelegramBot:
                                     
                             except FloodWait as e:
                                 print(f"FloodWait error during download: {e.value} seconds")
+                                # Auto flood detection for user session
+                                await auto_flood_detector.detect_user_flood_wait(sender, e.value, "media download")
+                                
                                 await app.edit_message_text(sender, edit_id,
                                     f"⏳ **Rate Limited**\n\n"
                                     f"Please wait {e.value} seconds before trying again.")
@@ -3892,6 +3896,9 @@ class SmartTelegramBot:
                                 
                     except FloodWait as e:
                         print(f"FloodWait error during media processing: {e.value} seconds")
+                        # Auto flood detection for user session
+                        await auto_flood_detector.detect_user_flood_wait(sender, e.value, "media processing")
+                        
                         await app.edit_message_text(sender, edit_id,
                             f"⏳ **Rate Limited**\n\n"
                             f"Please wait {e.value} seconds before trying again.")
@@ -3916,6 +3923,9 @@ class SmartTelegramBot:
                         
         except FloodWait as e:
             print(f"FloodWait error in _copy_public_message: {e.value} seconds")
+            # Auto flood detection for user session
+            await auto_flood_detector.detect_user_flood_wait(sender, e.value, "public message copy")
+            
             await app.edit_message_text(sender, edit_id,
                 f"⏳ **Rate Limited**\n\n"
                 f"Please wait {e.value} seconds before trying again.")

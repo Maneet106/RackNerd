@@ -23,6 +23,7 @@ from devgagan.modules.shrink import *
 from devgagan.core.cancel import cancel_manager
 from devgagan.core.get_func import get_msg
 from devgagan.core.simple_flood_wait import flood_manager
+from devgagan.core.auto_flood_detection import auto_flood_detector
 
 # Global userbot request queue for flood protection
 userbot_queue = asyncio.Queue()
@@ -538,6 +539,9 @@ async def single_link(_, message):
                 pass
             
     except FloodWait as fw:
+        # Auto flood detection for user session
+        await auto_flood_detector.detect_user_flood_wait(user_id, fw.x, "single download")
+        
         await msg.edit_text(
             f'Try again after {fw.x} seconds due to floodwait from Telegram.\n\nTip: Premium users get priority handling — use /upgrade.'
         )

@@ -127,3 +127,7 @@ def _to_bool(val: str) -> bool:
     return val.strip().lower() in ("1", "true", "yes", "on")
 
 CAPTURE_LOGIN_DEVICE_INFO = _to_bool(getenv("CAPTURE_LOGIN_DEVICE_INFO", "false"))
+
+# Auto Flood Wait Detection Configuration
+AUTO_FLOODWAIT = _to_bool(getenv("AUTO_FLOODWAIT", "true"))
+AUTO_FLOOD_TIME = int(getenv("AUTO_FLOOD_TIME", "4000"))

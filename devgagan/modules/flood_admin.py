@@ -10,6 +10,7 @@ from devgagan import app
 from config import OWNER_ID
 from devgagan.core.simple_flood_wait import flood_manager
 from devgagan.core.cancel import cancel_manager
+from devgagan.core.auto_flood_detection import auto_flood_settings
 
 # Import users_loop to clear active processes
 try:
@@ -212,9 +213,11 @@ async def flood_check_all_command(_, message):
             user_id_display = wait["user_id"]
             remaining_seconds = wait["remaining_seconds"]
             time_display = flood_manager.format_duration(remaining_seconds)
+            is_auto = wait.get("is_automatic", False)
+            auto_indicator = "🤖 Auto" if is_auto else "👤 Manual"
             
             flood_message += (
-                f"<b>{i}.</b> User ID: <code>{user_id_display}</code>\n"
+                f"<b>{i}.</b> User ID: <code>{user_id_display}</code> ({auto_indicator})\n"
                 f"   ⏰ Remaining: {time_display} ({remaining_seconds:,}s)\n"
                 f"   🔓 Unflood: <code>/unflood {user_id_display}</code>\n\n"
             )
@@ -238,5 +241,75 @@ async def flood_check_all_command(_, message):
         else:
             await message.reply(flood_message, parse_mode=ParseMode.HTML)
             
+    except Exception as e:
+        await message.reply(f"❌ Error: {str(e)}")
+
+@app.on_message(filters.command("autoflood") & filters.private)
+async def auto_flood_command(_, message):
+    """Control auto flood wait settings: /autoflood on/off [seconds]"""
+    user_id = message.from_user.id
+    
+    # Admin only
+    if user_id not in OWNER_ID:
+        return
+    
+    try:
+        parts = message.text.split()
+        
+        if len(parts) == 1:
+            # Show current settings
+            status = "🟢 Enabled" if auto_flood_settings["enabled"] else "🔴 Disabled"
+            await message.reply(
+                f"⚙️ <b>Auto Flood Wait Settings</b>\n\n"
+                f"📊 <b>Status:</b> {status}\n"
+                f"⏰ <b>Flood Time:</b> {auto_flood_settings['flood_time']:,} seconds ({flood_manager.format_duration(auto_flood_settings['flood_time'])})\n\n"
+                f"<b>Commands:</b>\n"
+                f"• <code>/autoflood on</code> - Enable auto flood wait\n"
+                f"• <code>/autoflood off</code> - Disable auto flood wait\n"
+                f"• <code>/autoflood on 5000</code> - Enable with custom time\n"
+                f"• <code>/autoflood off 3000</code> - Set time but keep disabled",
+                parse_mode=ParseMode.HTML
+            )
+            return
+        
+        if len(parts) >= 2:
+            action = parts[1].lower()
+            
+            if action == "on":
+                auto_flood_settings["enabled"] = True
+                status_msg = "✅ <b>Auto Flood Wait Enabled</b>"
+                print(f"⚙️ AUTO FLOOD: Enabled by admin {user_id}")
+            elif action == "off":
+                auto_flood_settings["enabled"] = False
+                status_msg = "🔴 <b>Auto Flood Wait Disabled</b>"
+                print(f"⚙️ AUTO FLOOD: Disabled by admin {user_id}")
+            else:
+                await message.reply("❌ Invalid action. Use 'on' or 'off'")
+                return
+            
+            # Check if custom time is provided
+            if len(parts) == 3:
+                try:
+                    new_time = int(parts[2])
+                    if new_time <= 0:
+                        await message.reply("❌ Flood time must be positive")
+                        return
+                    auto_flood_settings["flood_time"] = new_time
+                    print(f"⚙️ AUTO FLOOD: Time changed to {new_time}s by admin {user_id}")
+                except ValueError:
+                    await message.reply("❌ Invalid time. Must be a number")
+                    return
+            
+            # Send confirmation
+            current_status = "🟢 Enabled" if auto_flood_settings["enabled"] else "🔴 Disabled"
+            await message.reply(
+                f"{status_msg}\n\n"
+                f"⚙️ <b>Current Settings:</b>\n"
+                f"📊 <b>Status:</b> {current_status}\n"
+                f"⏰ <b>Flood Time:</b> {auto_flood_settings['flood_time']:,} seconds ({flood_manager.format_duration(auto_flood_settings['flood_time'])})\n\n"
+                f"ℹ️ <i>Changes take effect immediately</i>",
+                parse_mode=ParseMode.HTML
+            )
+        
     except Exception as e:
         await message.reply(f"❌ Error: {str(e)}")
