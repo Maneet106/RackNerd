@@ -22,6 +22,7 @@ from devgagan.core.mongo import db
 from devgagan.modules.shrink import *
 from devgagan.core.cancel import cancel_manager
 from devgagan.core.get_func import get_msg
+from devgagan.core.simple_flood_wait import flood_manager
 
 # Global userbot request queue for flood protection
 userbot_queue = asyncio.Queue()
@@ -374,6 +375,12 @@ async def single_link(_, message):
 
     # Check subscription and batch mode
     if await subscribe(_, message) == 1 or user_id in batch_mode:
+        return
+
+    # Check flood wait first
+    flood_message = await flood_manager.get_flood_wait_message(user_id)
+    if flood_message:
+        await message.reply(flood_message)
         return
 
     # Anti-spam: allow more for paid/verified/owner
@@ -850,6 +857,13 @@ async def batch_link(_, message):
     if join == 1:
         return
     user_id = message.chat.id
+    
+    # Check flood wait first
+    flood_message = await flood_manager.get_flood_wait_message(user_id)
+    if flood_message:
+        await message.reply(flood_message)
+        return
+    
     # Check if a batch process is already running
     if users_loop.get(user_id, False):
         await app.send_message(
