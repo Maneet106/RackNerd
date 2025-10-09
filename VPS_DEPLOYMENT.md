@@ -55,25 +55,7 @@ pip install -r requirements.txt
 #### Step 6: Configure Environment Variables
 ```bash
 cat > .env << 'EOF'
-API_ID=29643365
-API_HASH=9a8ad0f8e098319c4fa4eb497547e144
-BOT_TOKEN=8392817505:AAH04pycWXfEQk-Sn5E2stN72rpnZlDJTL8
-OWNER_ID=7583452145
-MONGO_DB=mongodb+srv://maneetsinghjassal:maneetjassmongodb@tg-subscription.gcmnmr2.mongodb.net/?retryWrites=true&w=majority&appName=tg-subscription
-LOG_GROUP=-1002970929744
-USER_LOGIN_INFO=-4924228113
-CAPTURE_LOGIN_DEVICE_INFO=true
-CHANNEL_ID=-1002790434524
-CHANNEL=@AlienxSaverchat
-FREEMIUM_LIMIT=5
-PREMIUM_LIMIT=500
-WEBSITE_URL=ShrinkMe.com
-AD_API=04f149fff737556ca814d38134a7081654442da0
-FREE_DOWNLOAD_CONCURRENCY=2
-CONCURRENCY_LIMIT=8
-QUEUE_WORKERS=8
-UPLOAD_CONCURRENCY_LIMIT=6
-SESSION_CONCURRENCY=3
+your env configs
 EOF
 ```
 
