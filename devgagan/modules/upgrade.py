@@ -98,8 +98,8 @@ def build_upgrade_text() -> str:
 
         "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
         "⚡ <b>7 Days</b> 🌟 BEST FOR TRIAL\n"
-        "   ₹60 (₹8.6/day)\n"
-        "   $1.00 ($0.14/day)\n\n"
+        "   ₹100 (₹14.3/day)\n"
+        "   $1.30 ($0.19/day)\n\n"
         "⭐ <b>30 Days</b> 👑 POPULAR\n"
         "   ₹180 (₹6.0/day)\n"
         "   $3.00 ($0.10/day)\n\n"
@@ -218,8 +218,8 @@ def get_payment_keyboard(plan_days: int, plan_price_inr: int):
     
     # Calculate international prices
     usd_price = {
-        7: 1.00, 30: 2.99, 90: 6.99, 365: 18.99
-    }.get(plan_days, 1.00)
+        7: 1.30, 30: 2.99, 90: 6.99, 365: 18.99
+    }.get(plan_days, 1.30)
     
     buttons = []
     
@@ -446,7 +446,7 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than snacks!):</b>\n\n"
                 
-                "⚡ <b>7 Days</b> - $1.00 ($0.14/day)\n"
+                "⚡ <b>7 Days</b> - $1.30 ($0.19/day)\n"
                 "⭐ <b>30 Days</b> - $3.00 ($0.10/day) 👑 POPULAR\n"
                 "💎 <b>90 Days</b> - $7.00 ($0.08/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - $12.00 ($0.07/day)\n"
@@ -502,7 +502,7 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
 
-                "⚡ <b>7 Days</b> - ₹60 (₹8.6/day)\n"
+                "⚡ <b>7 Days</b> - ₹100 (₹14.3/day)\n"
                 "⭐ <b>30 Days</b> - ₹180 (₹6.0/day) 👑 POPULAR\n"
                 "💎 <b>90 Days</b> - ₹480 (₹5.3/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - ₹650 (₹3.6/day)\n"
@@ -558,7 +558,7 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than coffee!):</b>\n"
 
-                "⚡ <b>7 Days</b> - $1.00 ($0.14/day)\n"
+                "⚡ <b>7 Days</b> - $1.30 ($0.19/day)\n"
                 "⭐ <b>30 Days</b> - $3.00 ($0.10/day) 👑 POPULAR\n"
                 "💎 <b>90 Days</b> - $7.00 ($0.08/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - $12.00 ($0.07/day)\n"
@@ -615,7 +615,7 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than gum!):</b>\n\n"
 
-                "⚡ <b>7 Days</b> - $1.00 USDT ($0.14/day)\n"
+                "⚡ <b>7 Days</b> - $1.30 USDT ($0.19/day)\n"
                 "⭐ <b>30 Days</b> - $3.00 USDT ($0.10/day) 👑 POPULAR\n"
                 "💎 <b>90 Days</b> - $7.00 USDT ($0.08/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - $12.00 USDT ($0.07/day)\n"
@@ -672,7 +672,7 @@ async def on_payment_method_selected(client, callback_query):
         if method == "cards":
             # Cards: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.00", callback_data=f"buy:{method}_7d_1.00"),
+                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
                  InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
                 [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
                  InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
@@ -681,7 +681,7 @@ async def on_payment_method_selected(client, callback_query):
         elif method == "upi":
             # UPI: Strategic pricing for Indian market (no extra fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - ₹60", callback_data=f"buy:{method}_7d_60"),
+                [InlineKeyboardButton("⚡ 7 Days - ₹100", callback_data=f"buy:{method}_7d_100"),
                  InlineKeyboardButton("⭐ 30 Days - ₹180", callback_data=f"buy:{method}_30d_180")],
                 [InlineKeyboardButton("💎 90 Days - ₹480", callback_data=f"buy:{method}_90d_480"),
                  InlineKeyboardButton("✨ 6 Months - ₹650", callback_data=f"buy:{method}_180d_650")],
@@ -690,7 +690,7 @@ async def on_payment_method_selected(client, callback_query):
         elif method == "wise":
             # Wise: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.00", callback_data=f"buy:{method}_7d_1.00"),
+                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
                  InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
                 [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
                  InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
@@ -699,7 +699,7 @@ async def on_payment_method_selected(client, callback_query):
         elif method == "crypto":
             # Crypto: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.00", callback_data=f"buy:{method}_7d_1.00"),
+                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
                  InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
                 [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
                  InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
