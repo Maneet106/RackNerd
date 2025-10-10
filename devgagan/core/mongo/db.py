@@ -59,7 +59,7 @@ async def remove_caption(user_id):
     await db.update_one({"_id": user_id}, {"$set": {"caption": None}})
 async def remove_replace(user_id):
     await db.update_one({"_id": user_id}, {"$set": {"replace_txt": None, "to_replace": None}})
- 
+
 async def remove_session(user_id):
     await db.update_one({"_id": user_id}, {"$set": {"session": None}})
 async def remove_channel(user_id):
@@ -67,4 +67,8 @@ async def remove_channel(user_id):
 async def delete_session(user_id):
     """Delete the session associated with the given user_id from the database."""
     await db.update_one({"_id": user_id}, {"$unset": {"session": ""}})
+
+async def set_logged_out(user_id, value=True):
+    """Mark the user's state as logged out without deleting the session."""
+    await db.update_one({"_id": user_id}, {"$set": {"logged_out": value}})
  

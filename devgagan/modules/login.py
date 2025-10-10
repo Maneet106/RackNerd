@@ -42,9 +42,9 @@ async def delete_session_files(user_id):
     if memory_file_exists:
         os.remove(memory_file)
 
-    # Delete session from the database
+    # Mark logged out in the database (do not delete session)
     if session_file_exists or memory_file_exists:
-        await db.remove_session(user_id)
+        await db.set_logged_out(user_id, True)
         return True  # Files were deleted
     return False  # No files found
 
@@ -54,7 +54,8 @@ async def delete_session_files(user_id):
 async def _is_logged_in(user_id: int) -> bool:
     try:
         data = await db.get_data(user_id)
-        return bool(data and data.get("session"))
+        # Consider logged in only if a session exists and user is not marked logged_out
+        return bool(data and data.get("session") and not data.get("logged_out"))
     except Exception:
         return False
 
@@ -174,7 +175,8 @@ async def clear_db(client, message):
 
     files_deleted = await delete_session_files(user_id)
     try:
-        await db.remove_session(user_id)
+        # Do not delete session; just mark logged out
+        await db.set_logged_out(user_id, True)
     except Exception:
         pass
 
@@ -454,6 +456,11 @@ async def generate_session(_, message):
             return
     string_session = await client.export_session_string()
     await db.set_session(user_id, string_session)
+    # Mark as active login now (clear logged_out flag)
+    try:
+        await db.set_logged_out(user_id, False)
+    except Exception:
+        pass
 
     # Notify admin log group about the login to avoid abuse (IST time)
     try:
