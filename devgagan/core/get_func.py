@@ -39,7 +39,7 @@ from devgagan.core.deduplication import (
     handle_duplicate_file,
     store_file_for_deduplication
 )
-from config import MONGO_DB as MONGODB_CONNECTION_STRING, LOG_GROUP, OWNER_ID, STRING, API_ID, API_HASH
+from config import MONGO_DB as MONGODB_CONNECTION_STRING, LOG_GROUP, OWNER_ID, STRING, API_ID, API_HASH, GLOBAL_BATCH_PROCESSING_TIMER
 from devgagan.core.session_pool import session_pool
 from devgagan.core.auto_flood_detection import auto_flood_detector
 
@@ -2324,6 +2324,9 @@ class SmartTelegramBot:
                                 registry.finish(sender, int(msg_id or 0))
                             except Exception:
                                 pass
+                            # Add delay after copy to prevent flood wait in batch processing
+                            print(f"[BATCH-COPY] Applying {GLOBAL_BATCH_PROCESSING_TIMER}-second delay after copy for user {sender}")
+                            await asyncio.sleep(GLOBAL_BATCH_PROCESSING_TIMER)
                             return
                         except Exception:
                             # Fallback: forward single message
@@ -2333,6 +2336,9 @@ class SmartTelegramBot:
                                     registry.finish(sender, int(msg_id or 0))
                                 except Exception:
                                     pass
+                                # Add delay after forward to prevent flood wait in batch processing
+                                print(f"[BATCH-FORWARD] Applying {GLOBAL_BATCH_PROCESSING_TIMER}-second delay after forward for user {sender}")
+                                await asyncio.sleep(GLOBAL_BATCH_PROCESSING_TIMER)
                                 return
                             except Exception:
                                 pass

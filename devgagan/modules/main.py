@@ -9,12 +9,16 @@ from devgagan import app, userrbot
 from config import (
     API_ID,
     API_HASH,
-    FREEMIUM_LIMIT,
     PREMIUM_LIMIT,
+    FREEMIUM_LIMIT,
+    MONGO_DB as MONGODB_CONNECTION_STRING,
+    LOG_GROUP,
     OWNER_ID,
+    STRING,
     DEFAULT_SESSION,
     FREE_SINGLE_WAIT_SECONDS,
     FREE_BATCH_WAIT_SECONDS,
+    GLOBAL_BATCH_PROCESSING_TIMER,
 )
 from pyrogram.errors import FloodWait
 from devgagan.core.func import subscribe, chk_user, get_link
@@ -1831,6 +1835,9 @@ async def batch_link(_, message):
                             pass
                         last_processed_for_scan = processed_count
                         last_progress_edit = time.time()
+                        # Add delay after forwarding to prevent flood wait
+                        print(f"[BATCH-FORWARD] Applying {GLOBAL_BATCH_PROCESSING_TIMER}-second delay after forwarding for user {user_id}")
+                        await asyncio.sleep(GLOBAL_BATCH_PROCESSING_TIMER)
                         # Move to next message id (only for non-topic queue mode)
                         if not use_topic_queue:
                             i += 1
@@ -2023,7 +2030,8 @@ async def batch_link(_, message):
                         consecutive_failures += 1
                 
                 # Add delay between downloads to prevent flooding
-                await asyncio.sleep(2)
+                print(f"[BATCH] Applying {GLOBAL_BATCH_PROCESSING_TIMER}-second delay between downloads for user {user_id}")
+                await asyncio.sleep(GLOBAL_BATCH_PROCESSING_TIMER)
             else:
                 # Silently skip invalid links
                 consecutive_failures += 1

@@ -74,6 +74,12 @@ try:
 except Exception:
     FREE_BATCH_WAIT_SECONDS = 300
 
+# Global batch processing timer (in seconds) - applies to all batch operations
+try:
+    GLOBAL_BATCH_PROCESSING_TIMER = int(getenv("GLOBAL_BATCH_PROCESSING_TIMER", "10"))
+except Exception:
+    GLOBAL_BATCH_PROCESSING_TIMER = 10
+
 # Fake Premium Marketing Configuration (in seconds)
 try:
     FAKE_MARKETING_MIN_INTERVAL = int(getenv("FAKE_MARKETING_MIN_INTERVAL", "7200"))  # 2 hours default
