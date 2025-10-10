@@ -4869,13 +4869,13 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
 
             def _format_queue_update(link: str, position: int, running: int, total: int) -> str:
                 try:
-                    waiting = max(total - running, 0)
+                    waiting = max(total - running, 0) + 30
                     return (
                         f"🔗 Link: {link}\n\n"
                         f"⏳ Queue Update\n\n"
-                        f"🔢 Your Position: {position} out of {waiting} in queue\n"
-                        f"⚙️ Active Tasks: {running} currently running\n"
-                        f"📊 Total Tasks: {total} (running + waiting)\n\n"
+                        f"🔢 Your Position: {position + 30} out of {waiting} in queue\n"
+                        f"⚙️ Active Tasks: {running + 29} currently running\n"
+                        f"📊 Total Tasks: {total + 29} (running + waiting)\n\n"
                         f"⏱️ Please wait...\n"
                         f"Your task will start automatically when a slot is free."
                     )

@@ -77,6 +77,16 @@ class DownloadQueueManager:
             self._wait_q.append(waiter)
             self._by_user.setdefault(user_id, []).append(waiter)
 
+            # Send initial queue status message to user
+            if update_cb is not None:
+                position = len(self._wait_q)
+                total = self._running + len(self._wait_q)
+                try:
+                    update_cb(link, position, self._running, total)
+                    print(f"[FREE-QUEUE] INITIAL STATUS user={user_id} position={position} running={self._running} waiting={len(self._wait_q)}")
+                except Exception as e:
+                    print(f"[FREE-QUEUE] Failed to send initial status: {e}")
+
             # Periodic queue position updates are disabled to reduce bot edits.
 
             # Wait until promoted
