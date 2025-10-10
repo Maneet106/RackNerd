@@ -9,7 +9,7 @@ from devgagan import app
 from devgagan.core.func import *
 from datetime import datetime, timedelta
 from motor.motor_asyncio import AsyncIOMotorClient
-from config import MONGO_DB, WEBSITE_URL, AD_API, LOG_GROUP  
+from config import MONGO_DB, WEBSITE_URL, AD_API, LOG_GROUP, PREMIUM_LIMIT, FREEMIUM_LIMIT  
 from pyrogram.enums import ParseMode
  
 # Token database commented out
@@ -97,12 +97,12 @@ async def token_handler(client, message):
             f"4️⃣ Use /help for all commands & features\n"
             f"5️⃣ Want premium power? Use /upgrade!\n\n"
             f"<b>🎁 FREE PLAN FEATURES:</b>\n"
-            f"┣ 📥 Batch downloads (up to 5 links)\n"
+            f"┣ 📥 Batch downloads (up to {FREEMIUM_LIMIT} links)\n"
             f"┣ 🔥 2GB file uploads supported\n"
             f"┣ ⚡ 3 requests per minute\n"
             f"┗ ⏱️ Standard processing with cooldowns\n\n"
             f"<b>✨ PREMIUM PLAN BENEFITS:</b>\n"
-            f"┣ 🎯 <b>Massive batches</b> - Up to 2000 links!\n"
+            f"┣ 🎯 <b>Massive batches</b> - Up to {PREMIUM_LIMIT} links!\n"
             f"┣ 🚀 <b>5× faster speed</b> - 15 requests/minute\n"
             f"┣ ⚡ <b>Zero cooldowns</b> - Non-stop processing\n"
             f"┣ 👑 <b>Priority processing</b> - Skip all queues\n"

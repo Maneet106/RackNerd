@@ -1,7 +1,7 @@
 from pyrogram import filters
 import io
 from devgagan import app
-from config import OWNER_ID
+from config import OWNER_ID, PREMIUM_LIMIT, FREEMIUM_LIMIT
 from devgagan.core.func import subscribe
 import asyncio
 from devgagan.core.func import *
@@ -67,8 +67,8 @@ help_pages = [
         
         "**For Bulk Downloads:**\n"
         "• Use `/batch` command for Automatic Download next posts \n"
-        "• Free users: Up to 5 links per batch\n"
-        "• Premium users: Up to 2000 links per batch\n\n"
+        f"• Free users: Up to {FREEMIUM_LIMIT} links per batch\n"
+        f"• Premium users: Up to {PREMIUM_LIMIT} links per batch\n\n"
         
         "💡 **Ready to explore commands? →**"
     ),
@@ -82,7 +82,7 @@ help_pages = [
         
         "📥 **Download Commands:**\n"
         "• `/batch` - Automatically Download multiple posts at once\n"
-        "  ┗ __Free: 5 links | Premium: 2000 links__\n"
+        f"  ┗ __Free: {FREEMIUM_LIMIT} links | Premium: {PREMIUM_LIMIT} links__\n"
         "• `/cancel` - Stop any ongoing batch process\n"
         "  ┗ __Useful when you want to start a new batch or cancel a ongoing Download__\n\n"
         
@@ -94,7 +94,7 @@ help_pages = [
         
         "💎 **Premium Commands:**\n"
         "• `/upgrade` - Get premium subscription\n"
-        "  ┗ __Unlock 2000 batch limit & faster speeds__\n"
+        f"  ┗ __Unlock {PREMIUM_LIMIT} batch limit & faster speeds__\n"
         "• `/myplan` - Check your premium status\n"
         "  ┗ __See expiry date and remaining time__\n"
         "• `/transfer` - Gift premium to another user\n"

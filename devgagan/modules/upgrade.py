@@ -132,7 +132,7 @@ def build_terms_text() -> str:
         "• Premium features may be modified or updated without notice\n\n"
 
         "<b>⭐ PREMIUM FEATURES INCLUDED:</b>\n"
-        "• Massive batch processing (up to 2000 links)\n"
+        f"• Massive batch processing (up to {PREMIUM_LIMIT} links)\n"
         "• 5× faster processing speed (15 requests/minute)\n"
         "• Zero cooldowns and priority processing\n"
         "• Access to premium channels and exclusive content\n"
