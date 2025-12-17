@@ -99,19 +99,19 @@ def build_upgrade_text() -> str:
         "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
         "⚡ <b>7 Days</b> 🌟 BEST FOR TRIAL\n"
         "   ₹100 (₹14.3/day)\n"
-        "   $1.30 ($0.19/day)\n\n"
+        "   $2.00 ($0.19/day)\n\n"
         "⭐ <b>30 Days</b> 👑 POPULAR\n"
-        "   ₹180 (₹6.0/day)\n"
-        "   $3.00 ($0.10/day)\n\n"
+        "   ₹250 (₹6.0/day)\n"
+        "   $5.00 ($0.10/day)\n\n"
         "💎 <b>90 Days</b> 🔥 BEST VALUE\n"
-        "   ₹480 (₹5.3/day)\n"
-        "   $7.00 ($0.08/day)\n\n"
+        "   ₹600 (₹5.3/day)\n"
+        "   $12.00 ($0.08/day)\n\n"
         "✨ <b>6 Months</b> 🎯 GREAT SAVINGS\n"
-        "   ₹650 (₹3.6/day)\n"
-        "   $12.00 ($0.07/day)\n\n"
+        "   ₹1000 (₹3.6/day)\n"
+        "   $20.00 ($0.07/day)\n\n"
         "👑 <b>1 Year</b> ⚡ MAX SAVINGS\n"
-        "   ₹1300 (₹3.6/day)\n"
-        "   $19.00 ($0.05/day)\n\n"
+        "   ₹1900 (₹3.6/day)\n"
+        "   $38.00 ($0.05/day)\n\n"
 
         f"• Get <b>{multiplier}× MORE POWER</b> than others for pocket change!\n\n"
 
@@ -177,7 +177,7 @@ def build_terms_text() -> str:
         "<b>🏢 AlienX Bot Premium Services</b>\n"
         "<i>Professional Telegram Automation & Content Management</i>\n\n"
         
-        "<b>📆 Last Updated:</b> January 2024\n"
+        "<b>📆 Last Updated:</b> October 2025\n"
         "<b>📧 Contact:</b> https://t.me/ZeroTrace0x for premium support"
     )
 
@@ -446,11 +446,11 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than snacks!):</b>\n\n"
                 
-                "⚡ <b>7 Days</b> - $1.30 ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $3.00 ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $7.00 ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $12.00 ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $19.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $2.00 ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $5.00 ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $12.00 ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $20.00 ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $38.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
                 "<b>Pay $0.30 + 10% Extra To Cover Platform Fees</b>\n"
@@ -503,10 +503,10 @@ async def on_payment_method_selected(client, callback_query):
                 "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
 
                 "⚡ <b>7 Days</b> - ₹100 (₹14.3/day)\n"
-                "⭐ <b>30 Days</b> - ₹180 (₹6.0/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - ₹480 (₹5.3/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - ₹650 (₹3.6/day)\n"
-                "👑 <b>1 Year</b> - ₹1300 (₹3.6/day) ⚡ MAX SAVINGS\n\n"
+                "⭐ <b>30 Days</b> - ₹250 (₹6.0/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - ₹600 (₹5.3/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - ₹1000 (₹3.6/day)\n"
+                "👑 <b>1 Year</b> - ₹1900 (₹3.6/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>✅ PAYMENT FEES NOTICE:</b>\n"
                 "<b>Pay Exact Amount - Zero Extra Fees Required!</b>\n"
@@ -558,11 +558,11 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than coffee!):</b>\n"
 
-                "⚡ <b>7 Days</b> - $1.30 ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $3.00 ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $7.00 ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $12.00 ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $19.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $2.00 ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $5.00 ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $12.00 ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $20.00 ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $38.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
                 "<b>Pay $0.50-$5.00 Extra To Cover Transfer Fees</b>\n"
@@ -615,11 +615,11 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than gum!):</b>\n\n"
 
-                "⚡ <b>7 Days</b> - $1.30 USDT ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $3.00 USDT ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $7.00 USDT ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $12.00 USDT ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $19.00 USDT ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $2.00 USDT ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $5.00 USDT ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $12.00 USDT ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $20.00 USDT ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $38.00 USDT ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
                 "<b>Pay $0.20-$4.00 Extra To Cover Network Fees</b>\n"
@@ -665,45 +665,45 @@ async def on_payment_method_selected(client, callback_query):
             except Exception as e:
                 print(f"Error sending Crypto logo: {e}")
                 # Fallback to text message
-                await callback_query.message.reply_text(text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                await callback_query.message.reply_text(text, parse_mode=ParseMode.HTML, disable_we12_page_preview=True)
         
         # Create plan selection keyboard for the chosen method in 2x2 format
         plan_buttons = []
         if method == "cards":
             # Cards: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
-                 InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
-                [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
-                 InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
-                [InlineKeyboardButton("👑 1 Year - $19.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_19.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
+                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
+                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
+                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
             ]
         elif method == "upi":
             # UPI: Strategic pricing for Indian market (no extra fees) - 2x2 + 1x1 layout
             plan_buttons = [
                 [InlineKeyboardButton("⚡ 7 Days - ₹100", callback_data=f"buy:{method}_7d_100"),
-                 InlineKeyboardButton("⭐ 30 Days - ₹180", callback_data=f"buy:{method}_30d_180")],
-                [InlineKeyboardButton("💎 90 Days - ₹480", callback_data=f"buy:{method}_90d_480"),
-                 InlineKeyboardButton("✨ 6 Months - ₹650", callback_data=f"buy:{method}_180d_650")],
-                [InlineKeyboardButton("👑 1 Year - ₹1300 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_1300")]
+                 InlineKeyboardButton("⭐ 30 Days - ₹250", callback_data=f"buy:{method}_30d_250")],
+                [InlineKeyboardButton("💎 90 Days - ₹600", callback_data=f"buy:{method}_90d_600"),
+                 InlineKeyboardButton("✨ 6 Months - ₹1000", callback_data=f"buy:{method}_180d_1000")],
+                [InlineKeyboardButton("👑 1 Year - ₹1900 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_1900")]
             ]
         elif method == "wise":
             # Wise: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
-                 InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
-                [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
-                 InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
-                [InlineKeyboardButton("👑 1 Year - $19.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_19.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
+                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
+                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
+                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
             ]
         elif method == "crypto":
             # Crypto: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $1.30", callback_data=f"buy:{method}_7d_1.30"),
-                 InlineKeyboardButton("⭐ 30 Days - $3.00", callback_data=f"buy:{method}_30d_3.00")],
-                [InlineKeyboardButton("💎 90 Days - $7.00", callback_data=f"buy:{method}_90d_7.00"),
-                 InlineKeyboardButton("✨ 6 Months - $12.00", callback_data=f"buy:{method}_180d_12.00")],
-                [InlineKeyboardButton("👑 1 Year - $19.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_19.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
+                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
+                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
+                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
             ]
         
         plan_buttons.append([InlineKeyboardButton("❌ Cancel Payment Session", callback_data="cancel_payment")])
