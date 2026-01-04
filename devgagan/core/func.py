@@ -107,6 +107,7 @@ async def subscribe(app, message):
          f"✅ <b>After joining both channels:</b>\n"
          f"• Click 'Verify Membership' button below\n"
          f"• Or send /start command again\n\n"
+         f"🎥 Tutorial Video: https://t.me/AlienxSaver/58\n\n"
          f"💡 <i>This ensures you get all important updates!</i>"
       )
       
