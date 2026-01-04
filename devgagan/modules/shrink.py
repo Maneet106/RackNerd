@@ -63,20 +63,16 @@ async def token_handler(client, message):
         # 2) 2x2 grid of channel/group/resource links (3 rows, 2 columns)
         # 3) 1x1 Upgrade to Premium (triggers the upgrade flow)
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("☎️ Contact Admin", url="https://t.me/ZeroTrace0x")],
+            [InlineKeyboardButton("✨ Upgrade to Premium", callback_data="nav:open_upgrade")],
             [
-                InlineKeyboardButton("📣 Broadcasting", url="https://t.me/AlienxSaver"),
-                InlineKeyboardButton("💭 Chat Group", url="https://t.me/AlienxSaverchat"),
-            ],
-            [
-                InlineKeyboardButton("🎯 Premium Courses", url="https://t.me/udemyzap"),
+                InlineKeyboardButton("🎯 UdemyZap", url="https://t.me/udemyzap"),
                 InlineKeyboardButton("🔐 VIP Members", url="https://t.me/+XvxdLuhsNOEzN2I1"),
             ],
             [
                 InlineKeyboardButton("📚 Secret Resources", url="https://t.me/+XLIGpgGX1hcxNTI1"),
-                InlineKeyboardButton("💎 Exclusive Vault", url="https://t.me/+DyNyXnu1ceFhM2U9"),
+                InlineKeyboardButton("💎 Exclusive Vault", url="https://t.me/ZeroTraceChannel0x"),
             ],
-            [InlineKeyboardButton("✨ Upgrade to Premium", callback_data="nav:open_upgrade")],
+            [InlineKeyboardButton("🤖 Auto sender bot", url="https://t.me/AlienxBoosterBot")],
         ])
 
         # HTML-formatted intro (commands left as plain text to stay clickable)
