@@ -258,7 +258,7 @@ def get_payment_keyboard(plan_days: int, plan_price_inr: int):
     return InlineKeyboardMarkup(buttons)
 
 
-@app.on_message(filters.command(["upgrade"]) & filters.private)
+@app.on_message(filters.command(["upgrade", "premium"]) & filters.private)
 async def upgrade_command(client, message):
     try:
         await message.reply_text(
