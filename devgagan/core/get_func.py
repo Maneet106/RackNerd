@@ -4878,7 +4878,7 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
                         f"📊 Total Tasks: {total + 29} (running + waiting)\n\n"
                         f"⏱️ Please wait...\n"
                         f"Your task will start automatically when a slot is free.\n\n"
-                        f"💎 Skip the queue with Premium — use /Upgrade"
+                        f"💎 Skip the queue with Premium and enjoy unlimited processing — use /premium"
                     )
                 except Exception:
                     return "⏳ Queueing... Please wait."

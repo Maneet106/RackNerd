@@ -173,7 +173,7 @@ class SimpleFloodWaitManager:
         if is_flood_waited:
             return (
                 f"[420 FLOOD_WAIT_X] : ⏳ A wait of {seconds_remaining} seconds is required. Please try again after {seconds_remaining} seconds due to Telegram's flood control.\n\n"
-                f"💎 Skip the wait with Premium — use /upgrade"
+                f"💎 Skip the wait with Premium and enjoy unlimited processing — use /premium"
             )
         
         return None
