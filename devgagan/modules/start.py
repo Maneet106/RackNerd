@@ -547,6 +547,7 @@ async def verify_subscription(client, callback_query):
             f"3️⃣ Try /batch for bulk downloads\n"
             f"4️⃣ Use /help for all commands & features\n"
             f"5️⃣ Want premium power? Use /upgrade!\n\n"
+            f"🎥 Tutorial Video: https://t.me/AlienxSaver/58\n\n"
             f"<b>🎁 FREE FEATURES:</b>\n"
             f"┣ 📥 Batch downloads (up to {FREEMIUM_LIMIT} links)\n"
             f"┣ 🔥 2GB file uploads supported\n"
@@ -556,8 +557,7 @@ async def verify_subscription(client, callback_query):
             f"┣ 🎯 <b>Massive batches</b> - Up to {PREMIUM_LIMIT} links!\n"
             f"┣ 🚀 <b>5× faster</b> - 15 requests per minute\n"
             f"┣ ⚡ <b>No cooldowns</b> - Process non-stop\n"
-            f"┣ 👑 <b>Priority processing</b> - Skip queues\n"
-            f"┗ 🎁 <b>Premium channels</b> - Exclusive content access\n\n"
+            f"┗  👑 <b>Priority processing</b> - Skip queues\n"
             f"💡 <b>Ready to upgrade?</b> Use /upgrade for premium!\n\n"
             f"<i>Happy saving! 🎯</i>"
         )
