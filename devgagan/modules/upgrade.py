@@ -101,10 +101,10 @@ def build_upgrade_text() -> str:
         "   ₹100 (₹14.3/day)\n"
         "   $2.00 ($0.19/day)\n\n"
         "⭐ <b>30 Days</b> 👑 POPULAR\n"
-        "   ₹250 (₹6.0/day)\n"
+        "   ₹180 (₹6.0/day)\n"
         "   $5.00 ($0.10/day)\n\n"
         "💎 <b>90 Days</b> 🔥 BEST VALUE\n"
-        "   ₹600 (₹5.3/day)\n"
+        "   ₹500 (₹5.3/day)\n"
         "   $12.00 ($0.08/day)\n\n"
         "✨ <b>6 Months</b> 🎯 GREAT SAVINGS\n"
         "   ₹1000 (₹3.6/day)\n"
@@ -682,8 +682,8 @@ async def on_payment_method_selected(client, callback_query):
             # UPI: Strategic pricing for Indian market (no extra fees) - 2x2 + 1x1 layout
             plan_buttons = [
                 [InlineKeyboardButton("⚡ 7 Days - ₹100", callback_data=f"buy:{method}_7d_100"),
-                 InlineKeyboardButton("⭐ 30 Days - ₹250", callback_data=f"buy:{method}_30d_250")],
-                [InlineKeyboardButton("💎 90 Days - ₹600", callback_data=f"buy:{method}_90d_600"),
+                 InlineKeyboardButton("⭐ 30 Days - ₹180", callback_data=f"buy:{method}_30d_180")],
+                [InlineKeyboardButton("💎 90 Days - ₹500", callback_data=f"buy:{method}_90d_500"),
                  InlineKeyboardButton("✨ 6 Months - ₹1000", callback_data=f"buy:{method}_180d_1000")],
                 [InlineKeyboardButton("👑 1 Year - ₹1900 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_1900")]
             ]
