@@ -503,8 +503,8 @@ async def on_payment_method_selected(client, callback_query):
                 "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
 
                 "⚡ <b>7 Days</b> - ₹100 (₹14.3/day)\n"
-                "⭐ <b>30 Days</b> - ₹250 (₹6.0/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - ₹600 (₹5.3/day) 🔥 BEST VALUE\n"
+                "⭐ <b>30 Days</b> - ₹180 (₹6.0/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - ₹500 (₹5.3/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - ₹1000 (₹3.6/day)\n"
                 "👑 <b>1 Year</b> - ₹1900 (₹3.6/day) ⚡ MAX SAVINGS\n\n"
                 
