@@ -69,7 +69,7 @@ async def token_handler(client, message):
                 InlineKeyboardButton("🔐 VIP Members", url="https://t.me/+XvxdLuhsNOEzN2I1"),
             ],
             [
-                InlineKeyboardButton("📚 Secret Resources", url="https://t.me/+XLIGpgGX1hcxNTI1"),
+                InlineKeyboardButton("🎮 𝗚ame 𝗛acks", url="https://t.me/jassalhacks"),
                 InlineKeyboardButton("💎 Exclusive Vault", url="https://t.me/ZeroTraceChannel0x"),
             ],
             [InlineKeyboardButton("🤖 Auto sender bot", url="https://t.me/AlienxBoosterBot")],
