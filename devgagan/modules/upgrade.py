@@ -99,19 +99,19 @@ def build_upgrade_text() -> str:
         "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
         "⚡ <b>7 Days</b> 🌟 BEST FOR TRIAL\n"
         "   ₹100 (₹14.3/day)\n"
-        "   $2.00 ($0.19/day)\n\n"
+        "   $5.00 ($0.19/day)\n\n"
         "⭐ <b>30 Days</b> 👑 POPULAR\n"
-        "   ₹180 (₹6.0/day)\n"
-        "   $5.00 ($0.10/day)\n\n"
+        "   ₹200 (₹6.0/day)\n"
+        "   $10.00 ($0.10/day)\n\n"
         "💎 <b>90 Days</b> 🔥 BEST VALUE\n"
         "   ₹500 (₹5.3/day)\n"
-        "   $12.00 ($0.08/day)\n\n"
+        "   $20.00 ($0.08/day)\n\n"
         "✨ <b>6 Months</b> 🎯 GREAT SAVINGS\n"
         "   ₹1000 (₹3.6/day)\n"
-        "   $20.00 ($0.07/day)\n\n"
+        "   $32.00 ($0.07/day)\n\n"
         "👑 <b>1 Year</b> ⚡ MAX SAVINGS\n"
         "   ₹1900 (₹3.6/day)\n"
-        "   $38.00 ($0.05/day)\n\n"
+        "   $45.00 ($0.05/day)\n\n"
 
         f"• Get <b>{multiplier}× MORE POWER</b> than others for pocket change!\n\n"
 
@@ -218,13 +218,13 @@ def get_payment_keyboard(plan_days: int, plan_price_inr: int):
     
     # Calculate international prices
     usd_price = {
-        7: 1.30, 30: 2.99, 90: 6.99, 365: 18.99
-    }.get(plan_days, 1.30)
+        7: 5.00, 30: 10.00, 90: 20.00, 200: 32.00, 365: 45.00
+    }.get(plan_days, 5.00)
     
     buttons = []
     
     # International Cards - Available for all plans (Show first for global appeal)
-    card_price = usd_price + 0.30  # Add processing fee
+    card_price = usd_price  # No additional fee - user pays exact amount
     buttons.append([InlineKeyboardButton(
         f"💳 Credit/Debit Card ${card_price:.2f}", 
         callback_data=f"pay:card_{plan_days}d_{card_price:.2f}"
@@ -236,17 +236,17 @@ def get_payment_keyboard(plan_days: int, plan_price_inr: int):
         callback_data=f"pay:upi_{plan_days}d_{plan_price_inr}"
     )])
     
-    # Crypto USDT - Only for plans $2+ (due to network fees)
-    if usd_price >= 2.00:
-        crypto_price = usd_price + 1.00  # Add network fee
+    # Crypto USDT - Available for plans $5+ (due to network fees)
+    if usd_price >= 5.00:
+        crypto_price = usd_price  # No additional fee - user pays exact amount
         buttons.append([InlineKeyboardButton(
             f"₿ Crypto (USDT) ${crypto_price:.2f}", 
             callback_data=f"pay:crypto_{plan_days}d_{crypto_price:.2f}"
         )])
     
-    # PayPal/Coffee - Only for plans $2+ (due to minimum)
-    if usd_price >= 2.00:
-        coffee_price = usd_price + 0.50  # Add platform fee
+    # PayPal/Coffee - Available for plans $5+ (due to minimum)
+    if usd_price >= 5.00:
+        coffee_price = usd_price  # No additional fee - user pays exact amount
         buttons.append([InlineKeyboardButton(
             f"🌐 PayPal/Other ${coffee_price:.2f}", 
             callback_data=f"pay:coffee_{plan_days}d_{coffee_price:.2f}"
@@ -442,19 +442,19 @@ async def on_payment_method_selected(client, callback_query):
         if method == "cards":
             text = (
                 "<b>💳 CREDIT/DEBIT CARDS</b>\n"
-                "<b>Powered by Buy Me Coffee</b>\n\n"
+                "<b>Powered by PayPal</b>\n\n"
                 
                 "<b>💰 INSANE PRICES (Cheaper than snacks!):</b>\n\n"
                 
-                "⚡ <b>7 Days</b> - $2.00 ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $5.00 ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $12.00 ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $20.00 ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $38.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $5.00 ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $10.00 ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $20.00 ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $32.00 ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $45.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
-                "<b>Pay $0.30 + 10% Extra To Cover Platform Fees</b>\n"
-                "<i>Else Shortfall Amount Duration Will Be Deducted From Subscription</i>\n\n"
+                "<b>Pay exactly the shown amount covering transaction fees</b>\n"
+                "<i>Else shortfall will happen and duration will be deducted from subscription</i>\n\n"
                 
                 "<b>💳 Accepted Cards:</b>\n"
                 "• Visa, MasterCard, American Express\n"
@@ -482,7 +482,7 @@ async def on_payment_method_selected(client, callback_query):
                     del qr_messages[user_id]
                 
                 logo_msg = await callback_query.message.reply_photo(
-                    photo=open("payment_images/buy_me_coffee_logo.jpg", "rb"),
+                    photo=open("payment_images/paypal_logo.jpg", "rb"),
                     caption=text,
                     parse_mode=ParseMode.HTML
                 )
@@ -491,7 +491,7 @@ async def on_payment_method_selected(client, callback_query):
                 qr_messages[user_id] = [logo_msg.id]
                 
             except Exception as e:
-                print(f"Error sending Buy Me Coffee logo: {e}")
+                print(f"Error sending PayPal logo: {e}")
                 # Fallback to text message
                 await callback_query.message.reply_text(text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
             
@@ -503,7 +503,7 @@ async def on_payment_method_selected(client, callback_query):
                 "<b>💰 INSANE PRICES (Cheaper than chai!):</b>\n\n"
 
                 "⚡ <b>7 Days</b> - ₹100 (₹14.3/day)\n"
-                "⭐ <b>30 Days</b> - ₹180 (₹6.0/day) 👑 POPULAR\n"
+                "⭐ <b>30 Days</b> - ₹200 (₹6.0/day) 👑 POPULAR\n"
                 "💎 <b>90 Days</b> - ₹500 (₹5.3/day) 🔥 BEST VALUE\n"
                 "✨ <b>6 Months</b> - ₹1000 (₹3.6/day)\n"
                 "👑 <b>1 Year</b> - ₹1900 (₹3.6/day) ⚡ MAX SAVINGS\n\n"
@@ -558,16 +558,15 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than coffee!):</b>\n"
 
-                "⚡ <b>7 Days</b> - $2.00 ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $5.00 ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $12.00 ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $20.00 ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $38.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $5.00 ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $10.00 ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $20.00 ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $32.00 ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $45.00 ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
-                "<b>Pay $0.50-$5.00 Extra To Cover Transfer Fees</b>\n"
-                "<i>Fee depends on your region and transfer amount</i>\n"
-                "<i>Else Shortfall Amount Duration Will Be Deducted From Subscription</i>\n\n"
+                "<b>Pay exactly the shown amount covering transfer fees</b>\n"
+                "<i>Else shortfall will happen and duration will be deducted from subscription</i>\n\n"
                 
                 "<b>🌍 Supported Countries:</b>\n"
                 "• USA, UK, Canada, Australia\n"
@@ -615,18 +614,17 @@ async def on_payment_method_selected(client, callback_query):
                 
                 "<b>💰 INSANE PRICES (Cheaper than gum!):</b>\n\n"
 
-                "⚡ <b>7 Days</b> - $2.00 USDT ($0.19/day)\n"
-                "⭐ <b>30 Days</b> - $5.00 USDT ($0.10/day) 👑 POPULAR\n"
-                "💎 <b>90 Days</b> - $12.00 USDT ($0.08/day) 🔥 BEST VALUE\n"
-                "✨ <b>6 Months</b> - $20.00 USDT ($0.07/day)\n"
-                "👑 <b>1 Year</b> - $38.00 USDT ($0.05/day) ⚡ MAX SAVINGS\n\n"
+                "⚡ <b>7 Days</b> - $5.00 USDT ($0.19/day)\n"
+                "⭐ <b>30 Days</b> - $10.00 USDT ($0.10/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $20.00 USDT ($0.08/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $32.00 USDT ($0.07/day)\n"
+                "👑 <b>1 Year</b> - $45.00 USDT ($0.05/day) ⚡ MAX SAVINGS\n\n"
                 
                 "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
-                "<b>Pay $0.20-$4.00 Extra To Cover Network Fees</b>\n"
-                "<i>Fee depends on network congestion and blockchain</i>\n"
-                "<i>Else Shortfall Amount Duration Will Be Deducted From Subscription</i>\n"
-                "<i>• TRC20: ~$1.00-$4.00 network fee</i>\n"
-                "<i>• BEP20: ~$0.20-$2.00 network fee</i>\n\n"
+                "<b>Pay exactly the shown amount covering network fees</b>\n"
+                "<i>Else shortfall will happen and duration will be deducted from subscription</i>\n"
+                "<i>• TRC20: ~$1.00-$4.00 network fee (included in total)</i>\n"
+                "<i>• BEP20: ~$0.20-$5.00 network fee</i>\n\n"
                 
                 "<b>📱 Supported Wallets:</b>\n"
                 "• Binance, Trust Wallet, MetaMask\n"
@@ -672,38 +670,38 @@ async def on_payment_method_selected(client, callback_query):
         if method == "cards":
             # Cards: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
-                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
-                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
-                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
-                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $5.00", callback_data=f"buy:{method}_7d_5.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $10.00", callback_data=f"buy:{method}_30d_10.00")],
+                [InlineKeyboardButton("💎 90 Days - $20.00", callback_data=f"buy:{method}_90d_20.00"),
+                 InlineKeyboardButton("✨ 6 Months - $32.00", callback_data=f"buy:{method}_200d_32.00")],
+                [InlineKeyboardButton("👑 1 Year - $45.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_45.00")]
             ]
         elif method == "upi":
             # UPI: Strategic pricing for Indian market (no extra fees) - 2x2 + 1x1 layout
             plan_buttons = [
                 [InlineKeyboardButton("⚡ 7 Days - ₹100", callback_data=f"buy:{method}_7d_100"),
-                 InlineKeyboardButton("⭐ 30 Days - ₹180", callback_data=f"buy:{method}_30d_180")],
+                 InlineKeyboardButton("⭐ 30 Days - ₹200", callback_data=f"buy:{method}_30d_200")],
                 [InlineKeyboardButton("💎 90 Days - ₹500", callback_data=f"buy:{method}_90d_500"),
-                 InlineKeyboardButton("✨ 6 Months - ₹1000", callback_data=f"buy:{method}_180d_1000")],
+                 InlineKeyboardButton("✨ 6 Months - ₹1000", callback_data=f"buy:{method}_200d_1000")],
                 [InlineKeyboardButton("👑 1 Year - ₹1900 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_1900")]
             ]
         elif method == "wise":
             # Wise: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
-                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
-                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
-                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
-                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $5.00", callback_data=f"buy:{method}_7d_5.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $10.00", callback_data=f"buy:{method}_30d_10.00")],
+                [InlineKeyboardButton("💎 90 Days - $20.00", callback_data=f"buy:{method}_90d_20.00"),
+                 InlineKeyboardButton("✨ 6 Months - $32.00", callback_data=f"buy:{method}_200d_32.00")],
+                [InlineKeyboardButton("👑 1 Year - $45.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_45.00")]
             ]
         elif method == "crypto":
             # Crypto: Original prices (user covers fees) - 2x2 + 1x1 layout
             plan_buttons = [
-                [InlineKeyboardButton("⚡ 7 Days - $2.00", callback_data=f"buy:{method}_7d_2.00"),
-                 InlineKeyboardButton("⭐ 30 Days - $5.00", callback_data=f"buy:{method}_30d_5.00")],
-                [InlineKeyboardButton("💎 90 Days - $12.00", callback_data=f"buy:{method}_90d_12.00"),
-                 InlineKeyboardButton("✨ 6 Months - $20.00", callback_data=f"buy:{method}_180d_20.00")],
-                [InlineKeyboardButton("👑 1 Year - $38.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_38.00")]
+                [InlineKeyboardButton("⚡ 7 Days - $5.00", callback_data=f"buy:{method}_7d_5.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $10.00", callback_data=f"buy:{method}_30d_10.00")],
+                [InlineKeyboardButton("💎 90 Days - $20.00", callback_data=f"buy:{method}_90d_20.00"),
+                 InlineKeyboardButton("✨ 6 Months - $32.00", callback_data=f"buy:{method}_200d_32.00")],
+                [InlineKeyboardButton("👑 1 Year - $45.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_45.00")]
             ]
         
         plan_buttons.append([InlineKeyboardButton("❌ Cancel Payment Session", callback_data="cancel_payment")])
@@ -758,7 +756,7 @@ async def on_plan_purchase(client, callback_query):
             clear_payment_session(user_id)
         
         # Plan names
-        plan_names = {7: "7-Day Starter", 30: "30-Day Popular", 90: "90-Day Pro", 180: "6-Month Premium", 365: "1-Year Ultimate"}
+        plan_names = {7: "7-Day Starter", 30: "30-Day Popular", 90: "90-Day Pro", 200: "6-Month Premium", 365: "1-Year Ultimate"}
         plan_name = plan_names.get(days, f"{days}-Day Plan")
         
         # Generate single comprehensive message based on method
@@ -766,18 +764,18 @@ async def on_plan_purchase(client, callback_query):
             # Send single message with QR code and all instructions
             try:
                 payment_msg = await callback_query.message.reply_photo(
-                    photo=open("payment_images/buy_me_coffee_qr.jpg", "rb"),
+                    photo=open("payment_images/paypal_qr.jpg", "rb"),
                     caption=f"<b>💳 CARD PAYMENT - {plan_name}</b>\n"
-                           f"💰 <b>Base Amount:</b> ${price}\n"
-                           f"⚠️ <b>Pay Extra:</b> $0.30 + 10% for platform fees\n\n"
+                           f"💰 <b>Total Amount:</b> ${price}\n"
+                           f"⚠️ <b>Pay exactly this amount</b> covering transaction fees\n\n"
                            
                            f"<b>🔗 Quick Payment:</b>\n"
-                           f"• Click: <a href='https://buymeacoffee.com/alienxbot'>Buy Me Coffee</a>\n"
+                           f"• Click: <a href='https://paypal.me/ManeetJassal214'>PayPal</a>\n"
                            f"• Or scan QR code above\n"
-                           f"• Pay <b>${price} + fees</b> to avoid duration deduction\n\n"
+                           f"• Pay <b>${price}</b> to avoid duration deduction\n\n"
                            
                            f"<b>📸 Next Steps:</b>\n"
-                           f"1️⃣ Complete payment (include fees)\n"
+                           f"1️⃣ Complete payment (exact amount)\n"
                            f"2️⃣ Screenshot confirmation\n"
                            f"3️⃣ Send screenshot here\n\n"
                            
@@ -804,7 +802,7 @@ async def on_plan_purchase(client, callback_query):
                 print(f"Error sending Cards payment: {e}")
                 # UNUSED VARIABLE COMMENTED OUT - Fallback text not used anywhere
                 # # Fallback to text message
-                # payment_text = f"<b>💳 CARD PAYMENT - {plan_name}</b>\nAmount: ${price}\nLink: https://buymeacoffee.com/alienxbot"
+                # payment_text = f"<b>💳 CARD PAYMENT - {plan_name}</b>\nAmount: ${price}\nLink: https://paypal.me/ManeetJassal214"
             
         elif method == "upi":
             # Send single message with QR code and all instructions
@@ -858,16 +856,16 @@ async def on_plan_purchase(client, callback_query):
                 payment_msg = await callback_query.message.reply_photo(
                     photo=open("payment_images/wise_qr.jpg", "rb"),
                     caption=f"<b>🌐 WISE TRANSFER - {plan_name}</b>\n"
-                           f"💰 <b>Base Amount:</b> ${price}\n"
-                           f"⚠️ <b>Pay Extra:</b> $0.50-$5.00 for transfer fees (region dependent)\n\n"
+                           f"💰 <b>Total Amount:</b> ${price}\n"
+                           f"⚠️ <b>Pay exactly this amount</b> covering transfer fees\n\n"
                            
                            f"<b>🔗 Quick Payment:</b>\n"
                            f"• Click: <a href='https://wise.com/pay/business/maneetsinghjassal'>Wise Payment</a>\n"
                            f"• Or scan QR code above\n"
-                           f"• Pay <b>${price} + fees</b> to avoid duration deduction\n\n"
+                           f"• Pay <b>${price}</b> to avoid duration deduction\n\n"
                            
                            f"<b>📸 Next Steps:</b>\n"
-                           f"1️⃣ Complete payment (include transfer fees)\n"
+                           f"1️⃣ Complete payment (exact amount)\n"
                            f"2️⃣ Screenshot confirmation\n"
                            f"3️⃣ Send screenshot here\n\n"
                            
@@ -899,8 +897,8 @@ async def on_plan_purchase(client, callback_query):
             try:
                 payment_msg = await callback_query.message.reply_text(
                     f"<b>₿ CRYPTO PAYMENT - {plan_name}</b>\n"
-                    f"💰 <b>Base Amount:</b> ${price} USDT\n"
-                    f"⚠️ <b>Pay Extra:</b> $0.20-$4.00 for network fees (congestion dependent)\n\n"
+                    f"💰 <b>Total Amount:</b> ${price} USDT\n"
+                    f"⚠️ <b>Pay exactly this amount</b> covering network fees\n\n"
                     
                     f"<b>🔗 Wallet Addresses:</b>\n"
                     f"<b>TRC20:</b> <code>TWxsdndK7QugJfYMvL8ETWVfJNPhbu1rAV</code>\n\n"
@@ -910,12 +908,12 @@ async def on_plan_purchase(client, callback_query):
                     f"<b>Binance Pay ID:</b> <code>1035380595</code>\n\n"
                     
                     f"<b>📱 Quick Payment:</b>\n"
-                    f"• Send <b>${price} USDT + network fees</b>\n"
+                    f"• Send <b>${price} USDT</b> covering network fees\n"
                     f"• TRC20: ~$1-4 fee | BEP20: ~$0.20-2 fee\n"
                     f"• Double-check address & include fees\n\n"
                     
                     f"<b>📸 Next Steps:</b>\n"
-                    f"1️⃣ Complete payment (include network fees)\n"
+                    f"1️⃣ Complete payment (exact amount)\n"
                     f"2️⃣ Screenshot transaction hash\n"
                     f"3️⃣ Send screenshot here\n\n"
                     
@@ -946,10 +944,20 @@ async def on_plan_purchase(client, callback_query):
         ist = pytz.timezone("Asia/Kolkata")
         current_time = datetime.datetime.now(ist)
         
+        # Calculate the actual price based on method and plan
+        if method == "upi":
+            # UPI prices in INR
+            upi_prices = {7: 100, 30: 200, 90: 500, 200: 1000, 365: 1900}
+            actual_price = upi_prices.get(days, 100)
+        else:
+            # International prices in USD
+            usd_prices = {7: 5.00, 30: 10.00, 90: 20.00, 200: 32.00, 365: 45.00}
+            actual_price = usd_prices.get(days, 5.00)
+        
         payment_waiting[user_id] = {
             "method": method,
             "days": days,
-            "price": price,
+            "price": actual_price,  # Use calculated price, not callback data
             "timestamp": current_time,
             "plan_name": plan_name,
             "active": True
