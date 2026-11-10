@@ -203,6 +203,7 @@ PAYMENT_METHODS_KB = InlineKeyboardMarkup(
         [InlineKeyboardButton("💳 PAYPAL - From $0.12/day", callback_data="payment_method:cards")],
         [InlineKeyboardButton("📱 UPI (India) - Zero Fees!", callback_data="payment_method:upi")],
         [InlineKeyboardButton("🌐 Wise Transfer - 50+ Countries", callback_data="payment_method:wise")],
+        [InlineKeyboardButton("💸 Remitly - Easy International", callback_data="payment_method:remitly")],
         [InlineKeyboardButton("₿ Crypto USDT - Anonymous", callback_data="payment_method:crypto")],
         [InlineKeyboardButton("⬅️ Back", callback_data="nav:open_upgrade")]
     ]
@@ -415,7 +416,7 @@ async def on_payment_methods(client, callback_query):
 
 
 # Payment method selection handlers
-@app.on_callback_query(filters.regex(r"^payment_method:(cards|upi|wise|crypto)$"))
+@app.on_callback_query(filters.regex(r"^payment_method:(cards|upi|wise|remitly|crypto)$"))
 async def on_payment_method_selected(client, callback_query):
     """Handle payment method selection and show plans"""
     try:
@@ -649,6 +650,53 @@ async def on_payment_method_selected(client, callback_query):
                 # Fallback to text message
                 await callback_query.message.reply_text(text, parse_mode=ParseMode.HTML, disable_we12_page_preview=True)
         
+        elif method == "remitly":
+            text = (
+                "<b>💸 REMITLY TRANSFER</b>\n"
+                "<b>Fast & Secure International Payments</b>\n\n"
+                
+                "<b>💰 INSANE PRICES (Cheaper than coffee!):</b>\n"
+
+                "⚡ <b>7 Days</b> - $5.00 ($0.71/day)\n"
+                "⭐ <b>30 Days</b> - $10.00 ($0.33/day) 👑 POPULAR\n"
+                "💎 <b>90 Days</b> - $20.00 ($0.22/day) 🔥 BEST VALUE\n"
+                "✨ <b>6 Months</b> - $32.00 ($0.16/day)\n"
+                "👑 <b>1 Year</b> - $45.00 ($0.12/day) ⚡ MAX SAVINGS\n\n"
+                
+                "<b>⚠️ PAYMENT FEES NOTICE:</b>\n"
+                "<b>Pay exactly the shown amount covering transfer fees</b>\n"
+                "<i>Else shortfall will happen and duration will be deducted from subscription</i>\n\n"
+                
+                "<b>👇 Select your plan duration below:</b>"
+            )
+            
+            # Send new message with logo
+            try:
+                user_id = callback_query.from_user.id
+                
+                # Clean up any existing QR messages for this user
+                if user_id in qr_messages:
+                    try:
+                        for msg_id in qr_messages[user_id]:
+                            await app.delete_messages(user_id, msg_id)
+                    except:
+                        pass
+                    del qr_messages[user_id]
+                
+                logo_msg = await callback_query.message.reply_photo(
+                    photo=open("payment_images/remitly_logo.jpg", "rb"),
+                    caption=text,
+                    parse_mode=ParseMode.HTML
+                )
+                
+                # Track logo message for cleanup
+                qr_messages[user_id] = [logo_msg.id]
+                
+            except Exception as e:
+                print(f"Error sending Remitly logo: {e}")
+                # Fallback to text message
+                await callback_query.message.reply_text(text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        
         # Create plan selection keyboard for the chosen method in 2x2 format
         plan_buttons = []
         if method == "cards":
@@ -687,6 +735,15 @@ async def on_payment_method_selected(client, callback_query):
                  InlineKeyboardButton("✨ 6 Months - $32.00", callback_data=f"buy:{method}_200d_32.00")],
                 [InlineKeyboardButton("👑 1 Year - $45.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_45.00")]
             ]
+        elif method == "remitly":
+            # Remitly: Original prices (user covers fees) - 2x2 + 1x1 layout
+            plan_buttons = [
+                [InlineKeyboardButton("⚡ 7 Days - $5.00", callback_data=f"buy:{method}_7d_5.00"),
+                 InlineKeyboardButton("⭐ 30 Days - $10.00", callback_data=f"buy:{method}_30d_10.00")],
+                [InlineKeyboardButton("💎 90 Days - $20.00", callback_data=f"buy:{method}_90d_20.00"),
+                 InlineKeyboardButton("✨ 6 Months - $32.00", callback_data=f"buy:{method}_200d_32.00")],
+                [InlineKeyboardButton("👑 1 Year - $45.00 ⚡ MAX SAVINGS", callback_data=f"buy:{method}_365d_45.00")]
+            ]
         
         plan_buttons.append([InlineKeyboardButton("❌ Cancel Payment Session", callback_data="cancel_payment")])
         
@@ -715,7 +772,7 @@ async def on_payment_method_selected(client, callback_query):
         await callback_query.answer("Error loading payment method.")
 
 # Plan purchase handlers
-@app.on_callback_query(filters.regex(r"^buy:(cards|upi|wise|crypto)_(\d+)d_(.+)$"))
+@app.on_callback_query(filters.regex(r"^buy:(cards|upi|wise|remitly|crypto)_(\d+)d_(.+)$"))
 async def on_plan_purchase(client, callback_query):
     """Handle plan purchase and initiate payment process"""
     try:
@@ -918,6 +975,47 @@ async def on_plan_purchase(client, callback_query):
                     
             except Exception as e:
                 print(f"Error sending Crypto payment: {e}")
+        
+        elif method == "remitly":
+            # Send single message with QR code and all instructions
+            try:
+                payment_msg = await callback_query.message.reply_photo(
+                    photo=open("payment_images/remitly_qr.jpg", "rb"),
+                    caption=f"<b>💸 REMITLY - {plan_name}</b>\n"
+                           f"💰 <b>Total Amount:</b> ${price}\n"
+                           f"⚠️ <b>Pay exactly this amount</b> covering transfer fees\n\n"
+                           
+                           f"<b>🔗 Quick Payment:</b>\n"
+                           f"• Click: <a href='https://remit.ly/pay/maneets5722'>Remitly</a>\n"
+                           f"• Or scan QR code above\n"
+                           f"• Pay to: maneets5722\n"
+                           f"• Pay <b>${price}</b> to avoid duration deduction\n\n"
+                           
+                           f"<b>📸 Next Steps:</b>\n"
+                           f"1️⃣ Complete payment (exact amount)\n"
+                           f"2️⃣ Send screenshot here\n\n"
+                           
+                           f"🔔 <b>SESSION ACTIVE:</b> {plan_name}\n"
+                           f"⏰ <b>Time:</b> 5 minutes remaining\n"
+                           f"🌍 <b>Available in 150+ countries</b>",
+                    parse_mode=ParseMode.HTML,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("❌ Cancel Payment Session", callback_data="cancel_payment")]
+                    ])
+                )
+                
+                # Initialize tracking lists if they don't exist
+                if user_id not in active_session_messages:
+                    active_session_messages[user_id] = []
+                if user_id not in qr_messages:
+                    qr_messages[user_id] = []
+                
+                # Track this single message
+                active_session_messages[user_id].append(payment_msg.id)
+                qr_messages[user_id].append(payment_msg.id)
+                    
+            except Exception as e:
+                print(f"Error sending Remitly payment: {e}")
         
         # Store payment waiting state with proper timezone
         ist = pytz.timezone("Asia/Kolkata")
